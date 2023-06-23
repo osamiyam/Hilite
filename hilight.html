@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title> Highlighting C source code </title>
+    <meta charset="utf-8">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script src="./hilite.js"></script>
+    <script>
+      function hilite() {
+         var txt = $(".source").val()
+         txt = transform(txt)
+         // alert("content = " + txt)
+         $(".highlighted").html("<pre>" + txt + "</pre>")
+      }
+      $(function () {
+         $(".mybttn").mouseup(hilite)
+      })
+    </script>
+    <style>
+      .reserved {color: blue; font-weight: bold; }
+      .cmacro {color: green; font-weight: bold; }
+      .keyfunc {color: black; font-weight: bold; text-decoration: underline}
+    </style>
+  </head>
+  <body>
+    <input type="button" value="highlight!" class="mybttn"> <br>
+    <textarea rows="15" cols="70" class="source">
+#include <stdio.h>
+#include <stdlib.h>
+
+int fib(int n);
+
+int main() {
+    int i;
+    const int n = 20;
+    for (i = 0; i < n; i++) {
+        printf("%d %d\n", i, i * i);
+    }
+    for (i = 0; i < n; i++) {
+        printf("%02d %10d\n", i, fib(i));
+    }
+    
+    return 0;
+}
+
+int fib(int n) {
+    if (n <= 1) return 1;
+    else return fib(n - 1) + fib(n - 2);
+}
+    </textarea>
+    <div class="highlighted">
+    </div>
+  </body>
+</html>
+
